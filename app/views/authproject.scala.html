@@ -1,0 +1,15 @@
+@(prj: Project, imgs: List[Img], blog: Option[Blog])(implicit person: Option[Person])
+
+@sfx2("My Projects", "myPortfolio") {
+
+@portmenu(person.get, "projects"){
+		<div class="row">
+			<div class="col-md-8">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#projectModal">
+  				Create Project
+				</button>
+			</div>
+		</div>
+	}
+
+}

@@ -1,0 +1,42 @@
+@()(implicit person: Option[Person])
+
+<script type='text/javascript' src='@routes.Assets.versioned("javascript/authimages.js")'></script>
+
+<div>
+</div>
+
+<!-- UPLOAD IMAGE MODAL -->
+<div class="modal fade" id="uploadImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<form action="@routes.AuthApi.addImage(person.get.id.get)" method="post" enctype="multipart/form-data" id="imgForm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add Image</h4>
+      </div>
+      <div class="modal-body">
+      	<input class="form-control" type="file" name="file" id="file" placeholder="Upload..."/><br/>
+      	<input class="form-control" type="text" id="name" name="name" placeholder="Image Name"/><br/>
+      	<div class="input-group">
+      		<span class="input-group-addon">
+       		 	<input type="checkbox" name="clipped" value="true" checked placeholder="Clipped"/>
+      		</span>
+      		<select class="form-control" name="clipType" id="clipType", placeholder="Clip type">
+      			<option>Upper Left</option>
+      			<option>Upper Right</option>
+      			<option>Center</option>
+      			<option>Lower Left</option>
+      			<option>Lower Right</option>
+    			</select>
+    		</div>
+      	<textarea class="form-control" name="description" id="description" placeholder="Description" rows="7"></textarea>
+      	<input type="hidden" id="addImgUrl" name="addImgUrl" value="@(routes.AuthApi.addImage(person.get.id.get))"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+        <input type="submit" class="btn btn-primary" id="addImageButton" placeholder="Upload Image"/>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>

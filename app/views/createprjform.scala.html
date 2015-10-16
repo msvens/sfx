@@ -1,0 +1,25 @@
+@()(implicit person: Option[Person])
+
+
+<script type='text/javascript' src='@routes.Assets.versioned("javascript/authperson.js")'></script>
+
+<!-- CREATE PROJECT MODAL -->
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add Project</h4>
+      </div>
+      <div class="modal-body">
+      	<input class="form-control" type="text" id="prjName" name="name" placeholder="Project Name"/><br/>
+      	<textarea class="form-control" name="desc" id="prjDesc" placeholder="Project Description" rows="7"></textarea>
+      	<input type="hidden" id="addUrl" name="addUrl" value="@(routes.AuthApi.addProject(person.get.id.get))"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+        <button type="button" class="btn btn-primary" id="addProjectButton">add project</button>
+      </div>
+    </div>
+  </div>
+</div>

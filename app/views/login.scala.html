@@ -1,0 +1,30 @@
+@(form: Form[Option[Person]])(implicit flash: Flash)
+
+@sfx2("login", "login") {
+
+<div class="row sfx-content">
+  <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+  <form role="form" method="POST">
+    <fieldset>
+      <h3>Sign in</h3>
+      <div class="form-group sfx-spacer">
+        <input type="text" name="login" id="login" class="form-control input-lg" placeholder="Login name">
+      </div>
+      <div class="form-group sfx-spacer">
+        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+      </div>
+      <div class="row sfx-spacer">
+			  <div class="col-xs-6 col-sm-6 col-md-6">
+          <input type="submit" class="btn btn-lg btn-primary btn-block" value="Login">
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+				  <a href='@routes.SfxAuth.register()' class="btn btn-lg btn-primary btn-block">Register</a>
+				</div>
+			</div>
+    </fieldset>
+  </form>
+  </div>
+</div>
+}(None)
+
+

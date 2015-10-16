@@ -1,0 +1,21 @@
+@(p: Person, prjs: Seq[Project])(implicit person: Option[Person])
+
+@sfx2("Portfolio", "portfolio") {
+@portmenu(p, "aboutme"){
+		<div class="row">
+			<div class="col-md-8">
+				<h3>@p.fullname</h3>
+				@p.bio.map{b => @b}
+				<h4 class="sfx-top-spacer">Projects</h4>
+				<div class="list-group">
+					@for(prj <- prjs){
+					<a href='@routes.Application.project(p.id.get, prj.id.get)' class="list-group-item">
+						<h4 class="list-group-item-heading">@prj.name</h4>
+						<p class="list-group-item-text">@prj.desc</p>
+					</a>
+					}
+				</div>
+			</div>
+		</div>
+	}
+}

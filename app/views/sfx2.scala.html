@@ -1,0 +1,78 @@
+@(title: String, current: String = "index")(content: Html)(implicit person: Option[Person])
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@title</title>
+    <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.css"))'>
+    <link rel='stylesheet' href='@routes.Assets.versioned("css/bootstrap-markdown.css")'>
+    <link rel='stylesheet' href='@routes.Assets.versioned("css/blueimp-gallery.css")'>
+    <link rel='stylesheet' href='@routes.Assets.versioned("css/bootstrap-image-gallery.css")'>
+    <link rel='stylesheet' href='@routes.Assets.versioned("css/jquery.Jcrop.css")'>
+    <link rel='stylesheet' href='@routes.Assets.versioned("css/sfx.css")'>
+</head>
+<body>
+
+<div id="wrap">
+<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+	<div class="container">
+		<div class="navbar-header">
+ 			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    		<span class="sr-only">Toggle navigation</span>
+     		<span class="icon-bar"></span>
+     		<span class="icon-bar"></span>
+     		<span class="icon-bar"></span>
+   		</button>
+  		<a href='@routes.Application.index()' class="navbar-brand">SouthOfX</a>
+		</div>
+		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+			<ul class="nav navbar-nav">
+      	<li @if(current == "portfolio") {class = "active"}> <a href='@routes.Application.people()'>portfolios</a></li>
+      	<li @if(current == "stream") {class = "active"}> <a href='@routes.Application.stream()'>stream</a></li>
+      	<li @if(current == "index") {class = "active"}> <a href='@routes.Application.index()'>about</a></li>
+			</ul>
+     	<ul class="nav navbar-nav navbar-right">
+        @person match {
+      		case None => {<li><a href='@routes.SfxAuth.login()'>login</a></li>}
+      		case Some(p) => {
+      			<li class="dropdown">
+          		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Create <b class="caret"></b></a>
+          			<ul class="dropdown-menu">
+            			<li><a href="#" data-toggle="modal" data-target="#projectModal">Project</a></li>
+            			<li><a href="#" data-toggle="modal" data-target="#uploadImgModal">Image</a></li>
+          			</ul>
+       	 		</li>
+      			<li @if(current == "myPortfolio") {class = "active"}> <a href='@routes.Application.projects(p.id.get)'>My Projects</a></li>
+      			<li @if(current == "myImages") {class = "active"}> <a href='@routes.Application.images(p.id.get)'>My Images</a></li>
+      			<li @if(current == "myBlogs") {class = "active"}> <a href='@routes.Application.blogs(p.id.get)'>My Blogs</a></li>
+      			<li><a href='@routes.SfxAuth.logout()'>logout</a></li>
+      		}
+     		}
+      </ul>
+		</nav>
+  </div>
+</header>
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
+<div class="container sfx-content">
+@content
+</div>
+@for(p <- person){
+	@createimgform()
+	@createprjform()
+}
+</div>
+<div id="footer">
+  <div class="container">
+  	<p class="text-muted">2014 - SouthOfX</p>
+  </div>
+</div>
+</body>
+  	
+</html>
+  
+  

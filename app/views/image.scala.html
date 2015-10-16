@@ -1,0 +1,18 @@
+@(p: Person, img: Img, project: Option[Project] = None)(implicit person: Option[Person])
+
+@sfx2("Images", "portfolio") {
+	
+	@portmenu(p, "images"){
+		<h3>@img.name</h3>
+		<p>
+			<img src='@routes.Application.rawImage(img.personId.get, img.id.get)'/>
+		</p>
+		@for(prj <- project){
+    <p>
+    	In Project: <a href='@routes.Application.project(img.personId.get, prj.id.get)'>@prj.name</a>
+   	</p>
+    }
+    @img.desc.get
+	}
+	
+}

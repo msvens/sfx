@@ -1,0 +1,33 @@
+@(prjs: Seq[Project])(implicit person: Option[Person])
+
+@sfx2("My Porfolio", "myPortfolio") {
+
+@portmenu(person.get, "aboutme"){
+		<div class="row">
+			<div class="col-md-3">
+				@person.get.img match {
+					case Some(id) => {
+						<img class="sfx-person-img-med" src='@routes.Assets.versioned("images/unknownPerson.png")'/>
+					}
+					case None => {
+						<img class="sfx-person-img-med" src='@routes.Assets.versioned("images/unknownPerson.png")'/>
+					}
+				}
+			</div>
+			<div>
+				<h4>@person.get.fullname</h4>
+			</div>
+		</div>
+		<div class="sfx-top-spacer"></div>
+		<div class="row">
+			<div class="col-md-8">
+				<h4>About</h4>
+				@person.get.bio.map{b => @b}
+				<h4>CV</h4>
+				<h4>Recent Projecs</h4>
+				<h4>Recent Blogs</h4>
+			</div>
+		</div>
+	}
+
+}

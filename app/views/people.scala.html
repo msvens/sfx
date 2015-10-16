@@ -1,0 +1,11 @@
+@(people: Seq[Person])(implicit person: Option[Person])
+
+@sfx2("people", "portfolio") {
+
+@for(p <- people) {
+<div class="well">
+<img class="sfx-person-img-small" src='@routes.Assets.versioned("images/unknownPerson.png")'/>
+<a href='@(routes.Application.person(p.id.get))'>@p.fullname</a>
+</div>
+}
+}

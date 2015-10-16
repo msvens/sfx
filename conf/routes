@@ -1,0 +1,55 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#Assets
+
+#user authentiction (change route for authenticate to not post to login
+GET     /login								                @controllers.SfxAuth.login
+POST    /login								                @controllers.SfxAuth.authenticate
+GET     /logout								                @controllers.SfxAuth.logout
+GET		/register							                @controllers.SfxAuth.register
+POST	/register							                @controllers.SfxAuth.doRegister
+
+
+#main menu
+GET     /                           						@controllers.Application.index()
+GET		/about												@controllers.Application.index()
+GET		/people												@controllers.Application.people()
+
+GET		/stream												@controllers.Application.stream(from: Int ?= 0, n: Int ?= 10)
+GET		/contact											@controllers.Application.contact()
+
+#individual user
+GET		/people/:id											@controllers.Application.person(id: Int)
+GET		/people/:id/images									@controllers.Application.images(id: Int)
+GET		/people/:id/images/:imgId							@controllers.Application.image(id: Int, imgId: Int)
+GET		/people/:id/images/:imgId/raw						@controllers.Application.rawImage(id: Int, imgId: Int)
+GET		/people/:id/images/:imgId/orig						@controllers.Application.origImage(id: Int, imgId: Int)
+GET		/people/:id/images/:imgId/thumb						@controllers.Application.rawThumb(id: Int, imgId: Int)
+GET		/people/:id/projects								@controllers.Application.projects(id: Int)
+GET		/people/:id/projects/:prjId							@controllers.Application.project(id: Int, prjId: Int)
+GET		/peopl/:id/blogs									@controllers.Application.blogs(id: Int)
+GET		/people/:id/blogs/:blgId							@controllers.Application.blog(id: Int, blgId: Int, render: Boolean ?= true)
+
+
+#api
+POST	/api/people/:id/projects							@controllers.AuthApi.addProject(id: Int)
+DELETE	/api/people/:id/images/:imgId					    @controllers.AuthApi.delImage(id: Int, imgId: Int)
+POST	/api/people/:id/images								@controllers.AuthApi.addImage(id: Int)
+POST	/api/people/:id/blogs/:blgId						@controllers.AuthApi.addPost(id: Int, blgId: Int)
+POST	/api/people/:id/images/:imgId						@controllers.AuthApi.updateImage(id: Int, imgId: Int)
+POST	/api/people/:id/images/:imgId/thumb					@controllers.AuthApi.updateThumb(id: Int, imgId: Int)
+
+
+# Map static resources from the /public folder to the /assets URL path
+#GET 	/js/*file   						controllers.Assets.at(path="/public/js", file)
+#GET 	/css/*file   						controllers.Assets.at(path="/public/css", file)
+#GET     /assets/*file               		controllers.Assets.at(path="/public", file)
+#GET     /webjars/*file              		controllers.WebJarAssets.at(file)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+#WebJars wrapper
+GET     /webjars/*file        		controllers.WebJarAssets.at(file)

@@ -1,0 +1,13 @@
+@(items: TraversableOnce[ItemLink])(implicit person: Option[Person])
+
+@sfx2("recent events", "stream") {
+
+@for(item <- items) {
+<div class="well">
+<h5 class="text-danger">@(item.item.timestamp) (@item.item.action.toLowerCase @item.item.itemType.toLowerCase)</h5>
+@for(l <- item.link){
+	<p>check out resource <a href='@l'>here</a></p>
+}
+</div>
+}
+}

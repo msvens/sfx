@@ -1,0 +1,45 @@
+@(p: Person, imgs: Seq[Img])(implicit person: Option[Person])
+
+@sfx2("images", "portfolios") {
+
+<script type='text/javascript' src='@routes.Assets.versioned("javascript/images.js")'></script>
+
+@portmenu(p, "images"){
+		<div class="row"> 
+			<h3 class="col-md-8">Images by @p.fullname</h3>
+		</div>
+		@imggallery(imgs, p)
+		<!--
+		@for(imgRow <- imgs.grouped(3)){
+		<div class="row sfx-top-spacer">
+			@for(img <- imgRow){
+			<div class="col-md-3">
+				<a href='@routes.Application.origImage(p.id.get, img.id.get)' class="thumb">
+    			<img src='@routes.Application.rawThumb(p.id.get, img.id.get)' alt='@img.name'/>
+    		</a>
+    		<br/>
+    		@img.name
+			</div>	
+			}	
+		</div>	
+		}
+		-->
+	}
+
+<!--
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog sfx-full-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        -->
+        <!--<h4 class="modal-title" id="myModalLabel">Add Project</h4>-->
+      <!--</div>
+      <div class="modal-body">
+      	<img id="fullImage"/>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+}

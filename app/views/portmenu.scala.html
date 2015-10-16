@@ -1,0 +1,19 @@
+@(p: Person, page: String)(right: Html)
+
+<div class="row">
+	<!-- left hand menu -->
+  <div class="col-md-2" style="background-color: #F7F7F7">
+  	<ul class="nav nav-pills nav-stacked sfx-small-menu">
+  		<li @if(page == "aboutme") {class="active"}> <a href='@(routes.Application.person(p.id.get))'>@p.login</a></li>
+    	<li @if(page == "projects") {class="active"}> <a href='@(routes.Application.projects(p.id.get))'>projects</a></li>
+    	<li @if(page == "images") {class="active"}> <a href='@(routes.Application.images(p.id.get))'>images</a></li>
+    	<li @if(page == "blog") {class="active"}> <a href='@(routes.Application.blogs(p.id.get))'>blog</a></li>
+  	</ul>
+	</div>
+	<div class="col-md-1"></div>
+	<!-- right hand content -->
+	<div class="col-md-9">
+		@right
+	</div>
+	
+</div>	

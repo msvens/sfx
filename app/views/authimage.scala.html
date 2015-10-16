@@ -1,0 +1,60 @@
+@(img: Img, project: Option[Project] = None)(implicit person: Option[Person])
+
+@sfx2("image", "image") {
+
+<script type="text/javascript" src='@routes.Assets.versioned("js/jquery.Jcrop.min.js")'></script>
+<script type='text/javascript' src='@routes.Assets.versioned("javascript/authimage.js")'></script>
+
+<table id="projectTable">
+  <thead></thead>
+  <tbody>
+    <tr>
+      <td><img class="projectImage"
+      		src='@routes.Application.rawImage(img.personId.get, img.id.get)'/></td>
+      <td class="projectImageDesc2">
+        <h1>@img.name</h1>
+        @for(prj <- project){
+        	<p>
+          In Project: <a
+            href='@routes.Application.project(img.personId.get, prj.id.get)'>@prj.name</a>
+       		</p>
+        }
+        @img.desc.getOrElse("no desc")
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="row sfx-top-spacer">
+			<button class="btn btn-primary" data-toggle="modal" data-target="#updateImgModal">
+		  	Update Image
+			</button>
+			<button class="btn btn-primary" id="updateThumbButton" data-url="@(routes.AuthApi.updateThumb(person.get.id.get, img.id.get))">
+		  	Update Thumbnail
+			</button>
+		</div>
+
+<!-- UPDATE IMAGE DIALOG -->
+<div class="modal fade" id="updateImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Update Image</h4>
+      </div>
+      <div class="modal-body">
+      	<input class="form-control" type="text" id="name" name="name" value="@img.name" placeholder="Image Name"/><br/>
+      	<textarea class="form-control" name="description" id="description" placeholder="Description" rows="7">@img.desc.getOrElse("")</textarea>
+      	<label class="checkbox">
+      			<input type="checkbox" id="copy" name="copy" value="true" placeholder="Copy Image"/>Copy to new image
+      	</label>
+      	<input type="hidden" id="updateImgUrl" name="updateImgUrl" value="@(routes.AuthApi.updateImage(person.get.id.get, img.id.get))"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+        <button type="button" class="btn btn-primary" id="updateImageButton">update image</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+}

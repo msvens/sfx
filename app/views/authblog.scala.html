@@ -1,0 +1,48 @@
+@(blog: Blog, posts: List[Post], project: Option[Project] = None)(implicit person: Option[Person])
+
+@sfx2("My Blogs", "myBlogs") {
+	
+	  <script type="text/javascript" src='@routes.Assets.versioned("js/mk/bootstrap-markdown.js")'></script>
+	  <script type="text/javascript" src='@routes.Assets.versioned("js/mk/markdown.js")'></script>
+	  <script type="text/javascript" src='@routes.Assets.versioned("js/mk/to-markdown.js")'></script>
+	  <script type="text/javascript" src='@routes.Assets.versioned("js/mk/main.js")'></script>
+	  <script type="text/javascript" src='@routes.Assets.versioned("js/jquery.form.js")'></script>
+	  <script type='text/javascript' src='@routes.Assets.versioned("javascript/authblog.js")'></script>
+	  
+	  @portmenu(person.get, "blogs"){
+    <!-- markdown editor -->
+    <div class="panel panel-default">
+    	<div class="panel-heading">
+    		<h4 class="panel-title">
+    			<a data-toggle="collapse" href="#collapseOne">Edit New Post</a>
+    		</h4>
+    	</div>
+    	<div id="collapseOne" class="panel-collapse collapse">
+      	<div class="panel-body">
+      		<form role="form" action="@routes.AuthApi.addPost(person.get.id.get, blog.id.get)" method="post" id="blogForm">
+      			<div class="form-group">
+      				<input class="form-control" name="title" type="text" placeHolder="Post Title"/>
+      			</div>
+      			<textarea name="body" id="edit-post" rows="15">### Hello there
+Start writing your new post
+
+      			</textarea>
+  					<div class="form-group sfx-spacer">
+  						<input type="submit" class="btn btn-primary pull-right" value="Submit Post"/>
+  					</div>
+      		</form>
+      	</div>
+     	</div>
+    </div>
+     	<!-- any blog posts goes here -->
+     	@for(post <- posts){
+     		<div class="well sfx-blog-well">
+     			<div class="page-header">
+     				<h2>@post.title <small>@post.created.toString</small></h2>
+     			</div>
+     			@Html(post.body)
+     		</div>
+     	}
+	}
+	
+}

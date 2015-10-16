@@ -1,0 +1,57 @@
+@(imgs: Seq[Img])(implicit person: Option[Person])
+
+@sfx2("My Images", "myImages") {
+
+<script type="text/javascript" src='@routes.Assets.versioned("js/jquery.form.js")'></script>
+<script type='text/javascript' src='@routes.Assets.versioned("javascript/images.js")'></script>
+
+@portmenu(person.get, "images") {
+		<div class="row"> 
+			<h3 class="col-md-8">Images by @person.get.fullname</h3>
+		</div>
+		@for(imgRow <- imgs.grouped(3)){
+		<div class="row sfx-top-spacer">
+			@for(img <- imgRow){
+			<div class="col-md-3">
+				@img.name<br/>
+				<a href='@routes.Application.origImage(person.get.id.get, img.id.get)' class="thumb">
+    			<img src='@routes.Application.rawThumb(person.get.id.get, img.id.get)' alt='@img.name'/>
+    		</a>
+    		<br/>
+    		<a href='@routes.Application.image(person.get.id.get,img.id.get)'>
+    		<button type="button" class="btn btn-default btn-sm">
+  				<span class="glyphicon glyphicon-pencil"></span>
+				</button>
+				</a>
+				<a class="deleteImg" href='@routes.AuthApi.delImage(person.get.id.get,img.id.get)'>
+    		<button type="button" class="btn btn-default btn-sm">
+  				<span class="glyphicon glyphicon-trash"></span>
+				</button>
+				</a>
+			</div>	
+			}
+		</div>
+		}
+		<div class="row sfx-top-spacer">
+			<button class="btn btn-primary" data-toggle="modal" data-target="#uploadImgModal">
+		  	Upload Image
+			</button>	
+		</div>
+	}
+
+<!-- IMAGE MODAL -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog sfx-full-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!--<h4 class="modal-title" id="myModalLabel">Add Project</h4>-->
+      </div>
+      <div class="modal-body">
+      	<img id="fullImage"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+}

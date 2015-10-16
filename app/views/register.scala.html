@@ -1,0 +1,61 @@
+@(form: Form[(String, String, String, (String, String), Option[String])])(implicit flash: Flash)
+
+@sfx2("register", "register") {
+
+@if(form.hasErrors){
+	<div class="alert alert-warning alert-dismissable">
+  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  	<strong>Warning! </strong>Form not correctly filled in:
+  	<ul>
+  	@for(e <-form.errors){
+  		<li>@e.message</li>
+  	}
+  	</ul>
+	</div>
+}
+
+	
+<div class="row sfx-content">
+<div class="col-md-6 col-md-offset-3">
+<h2>Register</h2>
+<form method="POST">
+<div class="row">
+  <div class="col-md-12 form-group">
+  	<input class="form-control" type="text" name="login" placeholder="Login" required autofocus/>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 form-group">
+  	<input class="form-control" type="email" name="email" placeholder="Email"/>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 form-group">
+  	<input class="form-control" type="text" name="fullName" placeholder="Full Name"/>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 form-group">
+  	<input class="form-control" type="password" name="password.main" placeholder="Password"/>
+  </div>
+  <div class="col-md-6 form-group">
+  	<input class="form-control" type="password" name="password.check" placeholder="Retype Password"/>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 form-group">
+  	<textarea class="form-control" id="bio" name="bio" placeholder="Message" rows="5"></textarea>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 form-group">
+  	<input type="submit" class="btn btn-primary pull-right" value="Register"/>
+  </div>
+</div>
+</form>
+</div>
+</div>
+
+}(None)
+
+
