@@ -21,6 +21,11 @@ libraryDependencies ++= Seq(
   specs2 % Test
 )
 
+//webjars
+libraryDependencies ++= Seq(
+  "org.webjars" % "bootbox" % "4.4.0",
+  "org.webjars" % "Jcrop" % "0.9.12"
+)
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 

@@ -57,7 +57,8 @@ trait AuthSfxConfig extends AuthConfig {
     Future.successful(Forbidden("no permission"))
   }
 
-  def authorize(user: User, authortiy: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authortiy(user)
+  def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
+
   /*def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = Future.successful {
     //this is simply for testing...should be changed to actually do something meaningful
     authority match {

@@ -27,11 +27,13 @@ class AuthApi @Inject() (da: DataAccess, val messagesApi: MessagesApi) extends A
   private def anyUser(id: Int)(p: Person): Future[Boolean] = Future.successful(true)
 
   private def imageOwner(imgId: Int)(p: Person): Future[Boolean] = for {
-    img <- da.imgDAO.get(imgId)
-  } yield img match {
+      img <- da.imgDAO.get(imgId)
+    } yield img match {
       case None => false
       case Some(i) => i.owner.get == p.id.get
     }
+
+
 
   //the id is not needed...will be removed...keep for refactoring purpose
   def addPost(id: Int, blgId: Int) = AsyncStack(AuthorityKey -> sameUser(id)){ implicit r =>
